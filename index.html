@@ -1,53 +1,359 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <title>Valorant Tracker Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TrackerVLR - Bot de tracking de estatísticas de Valorant em tempo real para Discord.">
+    <title>TrackerVLR | Bot de Estatisticas de Valorant</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+        /* Paleta escura com destaques neon inspirados no Discord */
+        :root {
+            --bg: #0d1117;
+            --panel: #161b22;
+            --panel-soft: #1f2630;
+            --text: #e6edf3;
+            --muted: #9aa4b2;
+            --border: #2d3642;
+            --accent-blue: #4f8cff;
+            --accent-purple: #8b5cf6;
+            --accent-green: #39ff88;
+            --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
             margin: 0;
-            padding: 40px;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79, 140, 255, 0.16), transparent 36%),
+                radial-gradient(circle at top right, rgba(139, 92, 246, 0.14), transparent 34%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 980px;
+            background: linear-gradient(180deg, rgba(31, 38, 48, 0.85) 0%, rgba(22, 27, 34, 0.92) 100%);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+        }
+
+        header {
+            text-align: center;
+            padding: 48px 24px 36px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(145deg, rgba(79, 140, 255, 0.12), rgba(139, 92, 246, 0.12));
+        }
+
+        .tag {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            background: rgba(57, 255, 136, 0.1);
+            border: 1px solid rgba(57, 255, 136, 0.25);
+            border-radius: 999px;
         }
 
         h1 {
-            color: #38bdf8;
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.1rem);
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+        }
+
+        .subtitle {
+            margin: 12px auto 0;
+            max-width: 700px;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.15rem);
+        }
+
+        main {
+            padding: 24px;
+        }
+
+        section {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 26px 22px;
+            margin-bottom: 18px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+            border-color: rgba(79, 140, 255, 0.45);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
         }
 
         h2 {
-            margin-top: 30px;
-            color: #22c55e;
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: clamp(1.28rem, 2.8vw, 1.65rem);
+            color: #c6d7ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            width: 8px;
+            height: 24px;
+            border-radius: 99px;
+            background: linear-gradient(var(--accent-blue), var(--accent-purple));
+            display: inline-block;
         }
 
         p {
-            line-height: 1.6;
+            margin: 0;
+            color: var(--text);
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
+        .separator {
+            height: 1px;
+            margin: 20px 0;
+            border: 0;
+            background: linear-gradient(90deg, transparent, rgba(79, 140, 255, 0.45), transparent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .feature-grid li {
+            background: var(--panel-soft);
+            border: 1px solid #303a47;
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: #d6e2ff;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .feature-grid li:hover {
+            border-color: var(--accent-green);
+            background: rgba(57, 255, 136, 0.08);
+        }
+
+        .commands {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .command-card {
+            background: #10151d;
+            border: 1px solid #2e3948;
+            border-radius: 10px;
+            padding: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .command-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25) inset;
+        }
+
+        code {
+            color: var(--accent-green);
+            font-family: Consolas, "Fira Code", "Courier New", monospace;
+            font-size: 0.98rem;
+        }
+
+        .legal p + p {
+            margin-top: 12px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            padding: 18px 16px 24px;
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 14px;
+            }
+
+            header {
+                padding: 38px 16px 28px;
+            }
+
+            main {
+                padding: 14px;
+            }
+
+            section {
+                padding: 20px 16px;
+            }
+
+            .feature-grid,
+            .commands {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Valorant Tracker Bot</h1>
+    <div class="page">
+        <header>
+            <span class="tag">Discord Bot</span>
+            <h1>TrackerVLR</h1>
+            <p class="subtitle">Bot de tracking de estatisticas de Valorant em tempo real</p>
+        </header>
 
-        <h2>Terms of Service</h2>
-        <p>
-            By using this bot, you agree to use it responsibly and in accordance with Discord's Terms of Service.
-            This bot provides Valorant statistics and may rely on third-party APIs.
-            We do not guarantee accuracy or uptime.
-        </p>
+        <main>
+            <section>
+                <h2>Sobre o Bot</h2>
+                <p>
+                    O TrackerVLR e um bot para Discord focado em centralizar informacao competitiva de Valorant.
+                    Com ele, os utilizadores conseguem consultar estatisticas de jogadores, analisar as ultimas partidas
+                    e acompanhar indicadores de desempenho para apoiar decisoes de equipa e melhoria individual.
+                </p>
+            </section>
 
-        <h2>Privacy Policy</h2>
-        <p>
-            This bot may store limited data such as Discord user IDs and Valorant usernames
-            to provide tracking features. No personal data is sold or shared.
-            Data is only used to improve functionality.
-        </p>
+            <hr class="separator">
+
+            <section>
+                <h2>Funcionalidades</h2>
+                <ul class="feature-grid">
+                    <li>Tracking de partidas</li>
+                    <li>Estatisticas em tempo real</li>
+                    <li>Deteccao de desempenho (ex: bottom frag)</li>
+                    <li>Integracao com APIs externas</li>
+                </ul>
+            </section>
+
+            <hr class="separator">
+
+            <section>
+                <h2>Comandos</h2>
+                <div class="commands">
+                    <div class="command-card"><code>/track [player]</code></div>
+                    <div class="command-card"><code>/lastmatch</code></div>
+                    <div class="command-card"><code>/stats</code></div>
+                    <div class="command-card"><code>/help</code></div>
+                </div>
+            </section>
+
+            <hr class="separator">
+
+            <section class="legal">
+                <h2>Terms of Service</h2>
+                <p>
+                    Effective Date: 22 April 2026. By inviting, accessing, or using TrackerVLR in any Discord server or
+                    direct message, you agree to these Terms of Service. If you do not agree, you must stop using the bot
+                    and remove it from your server.
+                </p>
+                <p>
+                    TrackerVLR provides Valorant-related statistics, match summaries, and performance insights based on
+                    available data sources. The service is provided on an "as is" and "as available" basis without warranties
+                    of accuracy, completeness, availability, or fitness for a particular purpose. Features may be added,
+                    changed, limited, or removed at any time.
+                </p>
+                <p>
+                    You agree to use TrackerVLR in compliance with Discord's Terms of Service, Community Guidelines, Riot
+                    Games policies, and all applicable laws and regulations. You may not use the bot for harassment, abuse,
+                    unauthorized data collection, reverse engineering, service disruption, or any unlawful activity.
+                </p>
+                <p>
+                    The bot may depend on third-party APIs and infrastructure. TrackerVLR is not responsible for outages,
+                    delays, data discrepancies, or changes made by external providers. We may temporarily suspend features
+                    for maintenance, security, or operational reasons.
+                </p>
+                <p>
+                    To protect service stability, rate limits, command restrictions, and moderation safeguards may apply.
+                    Repeated abuse or attempts to bypass limitations can result in temporary or permanent access removal for
+                    users, channels, or servers, at our sole discretion.
+                </p>
+                <p>
+                    Except where prohibited by law, TrackerVLR and its maintainers are not liable for indirect, incidental,
+                    consequential, special, or punitive damages, including loss of data, revenue, or reputation resulting
+                    from use of or inability to use the bot.
+                </p>
+                <p>
+                    These terms may be updated periodically. Continued use of TrackerVLR after updates constitutes acceptance
+                    of the revised terms. If required by local law, specific rights and protections may apply in your region.
+                </p>
+            </section>
+
+            <hr class="separator">
+
+            <section class="legal">
+                <h2>Privacy Policy</h2>
+                <p>
+                    Effective Date: 22 April 2026. This Privacy Policy explains what data TrackerVLR processes, why that
+                    processing is necessary, and how we protect the information used to provide bot functionality.
+                </p>
+                <p>
+                    TrackerVLR may process limited technical and service data, such as Discord user IDs, server IDs, channel
+                    IDs, command usage metadata, and user-provided Valorant identifiers required to perform tracking queries.
+                    We do not intentionally collect sensitive personal data categories.
+                </p>
+                <p>
+                    Data is used strictly for core operations: responding to commands, presenting match and performance
+                    insights, preventing abuse, troubleshooting errors, and improving reliability. We do not sell personal
+                    data and we do not use collected data for unrelated advertising profiles.
+                </p>
+                <p>
+                    When needed, data may be processed through trusted third-party providers (for example hosting, logging,
+                    analytics, or external game-stat APIs) under appropriate safeguards. Those providers process only the
+                    minimum data necessary to deliver their services.
+                </p>
+                <p>
+                    We retain data only for as long as reasonably required for operational, security, or legal obligations.
+                    Retention periods may vary by data type (for example cached results, audit logs, or configuration data),
+                    after which data is deleted or anonymized when feasible.
+                </p>
+                <p>
+                    We implement reasonable technical and organizational security measures to reduce risks of unauthorized
+                    access, disclosure, alteration, or loss. No online service can guarantee absolute security, but we
+                    continuously review controls to improve protection.
+                </p>
+                <p>
+                    Depending on your jurisdiction, you may have rights to request access, correction, deletion, or
+                    restriction of data associated with your use of TrackerVLR. You may also remove the bot from your server
+                    at any time to stop further processing in that server context.
+                </p>
+                <p>
+                    This Privacy Policy may be updated to reflect legal, technical, or service changes. The latest version
+                    should be considered authoritative from its effective date.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            &copy; 2026 TrackerVLR Bot
+        </footer>
     </div>
 </body>
 </html>
