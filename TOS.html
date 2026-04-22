@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terms of Service for TrackerVLR, a Discord bot for tracking Valorant statistics.">
+    <title>Terms of Service | TrackerVLR</title>
+    <style>
+        /* Single-file dark layout inspired by Discord surfaces */
+        :root {
+            --bg: #0f172a;
+            --bg-accent: #111c34;
+            --panel: rgba(15, 23, 42, 0.88);
+            --panel-strong: #111827;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.18);
+            --blue: #38bdf8;
+            --green: #22c55e;
+            --shadow: 0 18px 50px rgba(2, 6, 23, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 30%),
+                radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 26%),
+                linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 100%);
+            line-height: 1.7;
+            padding: 28px 16px;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+        }
+
+        .hero {
+            padding: 44px 28px 30px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.10), rgba(34, 197, 94, 0.08));
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 18px 0 10px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.02rem;
+        }
+
+        .updated {
+            margin-top: 16px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 26px;
+        }
+
+        .intro {
+            margin: 0 0 18px;
+            padding: 18px 18px 0;
+            color: #d8e2f0;
+        }
+
+        .intro strong {
+            color: var(--green);
+        }
+
+        .section {
+            background: rgba(17, 24, 39, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 18px;
+            margin-top: 16px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.32);
+            box-shadow: 0 12px 30px rgba(2, 6, 23, 0.22);
+        }
+
+        h2 {
+            margin: 0 0 10px;
+            font-size: 1.18rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+            flex: 0 0 auto;
+        }
+
+        p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        .section p + p {
+            margin-top: 12px;
+        }
+
+        .contact-box {
+            margin-top: 16px;
+            padding: 16px 18px;
+            border-left: 3px solid var(--green);
+            background: rgba(34, 197, 94, 0.08);
+            border-radius: 12px;
+            color: #dff7e7;
+        }
+
+        footer {
+            padding: 18px 20px 24px;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.18);
+            font-size: 0.94rem;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 14px;
+            }
+
+            .hero {
+                padding: 34px 18px 24px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .intro {
+                padding: 10px 8px 0;
+            }
+
+            .section {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="card">
+            <header class="hero">
+                <span class="eyebrow">TrackerVLR</span>
+                <h1>Terms of Service</h1>
+                <p class="subtitle">
+                    These Terms of Service govern the use of TrackerVLR, a Discord bot that provides Valorant-related
+                    tracking, match information, and player statistics through internal systems and external APIs.
+                </p>
+                <p class="updated">Last updated: 2026</p>
+            </header>
+
+            <main class="content">
+                <p class="intro">
+                    By adding, accessing, or using <strong>TrackerVLR</strong> in any Discord server or direct interaction,
+                    you agree to be bound by the terms below. If you do not agree with these terms, you must stop using the bot
+                    and remove it from your server where applicable.
+                </p>
+
+                <section class="section">
+                    <h2>1. Use of the Bot</h2>
+                    <p>
+                        TrackerVLR is provided for informational and utility purposes to help Discord users view Valorant-related
+                        statistics, recent match information, and gameplay performance indicators. Use of the bot must remain lawful,
+                        respectful, and consistent with Discord's Terms of Service, Community Guidelines, and any applicable game or
+                        platform policies.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>2. User Responsibility</h2>
+                    <p>
+                        You are responsible for how you use TrackerVLR and for ensuring that your actions do not violate any law,
+                        third-party rights, or platform rules. You agree not to misuse the bot for harassment, spam, abuse, unauthorized
+                        scraping, reverse engineering, disruption of service, or any activity intended to interfere with the bot,
+                        its infrastructure, or other users.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>3. Data Accuracy</h2>
+                    <p>
+                        TrackerVLR may display information obtained from external providers, cached sources, and automated processing
+                        systems. While reasonable efforts may be made to present useful and timely information, no guarantee is made
+                        regarding the accuracy, completeness, timeliness, or reliability of any statistics, match history, rankings,
+                        or performance analysis shown by the bot.
+                    </p>
+                    <p>
+                        Users should treat all outputs as informational only and should not rely on them as error-free, official, or
+                        continuously up-to-date records.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>4. Availability</h2>
+                    <p>
+                        TrackerVLR is provided on an "as is" and "as available" basis. We do not guarantee uninterrupted uptime,
+                        continuous access, response speed, feature availability, or ongoing support. The bot may experience downtime,
+                        maintenance windows, API interruptions, rate limits, degraded functionality, or permanent discontinuation.
+                    </p>
+                    <p>
+                        TrackerVLR may be modified, restricted, suspended, or shut down at any time, with or without prior notice.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>5. Limitation of Liability</h2>
+                    <p>
+                        To the maximum extent permitted by law, TrackerVLR and its operators shall not be liable for any indirect,
+                        incidental, special, consequential, or punitive damages, nor for any loss of data, profits, opportunity,
+                        reputation, or server activity arising from or related to the use of, inability to use, or reliance on the bot.
+                    </p>
+                    <p>
+                        This limitation applies even if the possibility of such damages has been advised or could reasonably have been foreseen.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>6. Third-Party Services</h2>
+                    <p>
+                        TrackerVLR may depend on third-party services, including Discord infrastructure and external APIs related to game
+                        data and statistics. We do not control those services and are not responsible for their availability, terms,
+                        policy changes, data quality, delays, restrictions, or failures.
+                    </p>
+                    <p>
+                        Your use of TrackerVLR may therefore also be indirectly affected by the rules and technical limitations of those
+                        third-party providers.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>7. Changes to Terms</h2>
+                    <p>
+                        These Terms of Service may be updated, replaced, or amended at any time in order to reflect operational, legal,
+                        technical, or product changes. Continued use of TrackerVLR after any revision becomes effective constitutes your
+                        acceptance of the updated terms.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2>8. Contact</h2>
+                    <p>
+                        Questions, concerns, or legal notices regarding these Terms of Service should be directed to the maintainers of
+                        TrackerVLR through the official support or contact channel associated with the bot.
+                    </p>
+                    <div class="contact-box">
+                        Contact reference: official TrackerVLR support channel or designated server administration contact.
+                    </div>
+                </section>
+            </main>
+
+            <footer>
+                &copy; 2026 TrackerVLR Bot
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
