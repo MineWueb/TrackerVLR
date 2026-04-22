@@ -56,6 +56,39 @@
             backdrop-filter: blur(8px);
         }
 
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.28);
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text);
+            border-color: rgba(56, 189, 248, 0.42);
+            background: rgba(56, 189, 248, 0.12);
+        }
+
+        .nav-link.active {
+            color: #e8f6ee;
+            border-color: rgba(34, 197, 94, 0.48);
+            background: rgba(34, 197, 94, 0.16);
+        }
+
         .hero {
             padding: 44px 28px 30px;
             border-bottom: 1px solid var(--border);
@@ -175,6 +208,11 @@
                 padding: 14px;
             }
 
+            .top-nav {
+                gap: 8px;
+                padding: 12px;
+            }
+
             .hero {
                 padding: 34px 18px 24px;
             }
@@ -196,6 +234,12 @@
 <body>
     <div class="shell">
         <div class="card">
+            <nav class="top-nav" aria-label="Primary Navigation">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link active" href="tos.html">Terms of Service</a>
+                <a class="nav-link" href="privacy.html">Privacy Policy</a>
+            </nav>
+
             <header class="hero">
                 <span class="eyebrow">TrackerVLR</span>
                 <h1>Terms of Service</h1>
